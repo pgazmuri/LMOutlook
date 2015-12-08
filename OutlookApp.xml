@@ -4,12 +4,12 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xsi:type="MailApp">
 
-  <Id>971E76EF-D73E-567F-ADAE-5A76B39052CF</Id>
+  <Id>989E76EF-D73E-567F-ADAE-5A76B39065CF</Id>
   <Version>1.0</Version>
-  <ProviderName>BlueMetl</ProviderName>
+  <ProviderName>BlueMetal</ProviderName>
   <DefaultLocale>en-us</DefaultLocale>
   <DisplayName DefaultValue="Claims Email Processor"/>
-  <Description DefaultValue="Detects Emails with Claim numbers and allows for forwarding.">
+  <Description DefaultValue="Detects Emails with Claim numbers and allows for forwarding to Navigator.">
     <Override Locale="fr-fr" Value="Visualisez les Claims"/>
   </Description>
   <!-- Change the following line to specify    -->
@@ -54,7 +54,7 @@
     </Form>
   </FormSettings>
 
-  <Permissions>ReadWriteItem</Permissions>
+  <Permissions>ReadWriteMailbox</Permissions>
 
   <Rule xsi:type="RuleCollection" Mode="Or">
     <Rule xsi:type="RuleCollection" Mode="And">
