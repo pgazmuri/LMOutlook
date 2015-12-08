@@ -15,7 +15,7 @@
 	<script>
 		// The initialize function is required for all apps.
 		Office.initialize = function (reason) {
-			
+			alert('Initializing...');
 			// Checks for the DOM to load using the jQuery ready function.
 			$(document).ready(function () {
 				document.getElementById('Data').innerText = 'Loading: ' + reason.toString();
@@ -28,9 +28,9 @@
 	
 
 	</script>
-        <p>Hello World!</p>
+        <p>We've detected a claim number in this email.  Would you like us to file this in Navigator?</p>
 		
-		<input type=button value=Insert onclick="DoIt();"></input>
+		<input type=button value="File In Navigator" onclick="DoIt();"></input>
 		<div id="Data"></div>
     </body>
 </html>

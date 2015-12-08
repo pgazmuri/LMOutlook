@@ -15,7 +15,7 @@
   <!-- Change the following line to specify    -->
   <!-- the web serverthat hosts the icon file. -->
   <IconUrl DefaultValue=
-    "https://bluemetal.sharepoint.com/sites/clientsandprojects/LibertyMutual/OutlookPlugin/Shared%20Documents/Addin/Logo.png"/>
+    "https://rawgit.com/pgazmuri/LMOutlook/master/Logo.png"/>
   <Hosts>
     <Host Name="Mailbox" />
   </Hosts>
@@ -30,13 +30,13 @@
       <DesktopSettings>
         <!-- Change the following line to specify     -->
         <!-- the web server that hosts the HTML file. -->
-        <SourceLocation DefaultValue="https://bluemetal.sharepoint.com/sites/clientsandprojects/LibertyMutual/OutlookPlugin/Shared%20Documents/Addin/read_desktop.html" />
+        <SourceLocation DefaultValue="https://rawgit.com/pgazmuri/LMOutlook/master/read_desktop.html" />
         <RequestedHeight>216</RequestedHeight>
       </DesktopSettings>
       <TabletSettings>
         <!-- Change the following line to specify     -->
         <!-- the web server that hosts the HTML file. -->
-        <SourceLocation DefaultValue="https://bluemetal.sharepoint.com/sites/clientsandprojects/LibertyMutual/OutlookPlugin/Shared%20Documents/Addin/read_tablet.html" />
+        <SourceLocation DefaultValue="https://rawgit.com/pgazmuri/LMOutlook/master/read_tablet.html" />
         <RequestedHeight>216</RequestedHeight>
       </TabletSettings>
     </Form>
@@ -44,12 +44,12 @@
       <DesktopSettings>
         <!-- Change the following line to specify     -->
         <!-- the web server that hosts the HTML file. -->
-        <SourceLocation DefaultValue="https://bluemetal.sharepoint.com/sites/clientsandprojects/LibertyMutual/OutlookPlugin/Shared%20Documents/Addin/compose_desktop.html" />
+        <SourceLocation DefaultValue="https://rawgit.com/pgazmuri/LMOutlook/master/compose_desktop.html" />
       </DesktopSettings>
       <TabletSettings>
         <!-- Change the following line to specify     -->
         <!-- the web server that hosts the HTML file. -->
-        <SourceLocation DefaultValue="https://bluemetal.sharepoint.com/sites/clientsandprojects/LibertyMutual/OutlookPlugin/Shared%20Documents/Addin/compose_tablet.html" />
+        <SourceLocation DefaultValue="https://rawgit.com/pgazmuri/LMOutlook/master/compose_tablet.html" />
       </TabletSettings>
     </Form>
   </FormSettings>
