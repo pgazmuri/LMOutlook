@@ -12,10 +12,10 @@
 		
     </head>
     <body>
-	<script>
+	<script type="text/javascript">
 		// The initialize function is required for all apps.
 		Office.initialize = function (reason) {
-			alert('Initializing...');
+			alert('Initializing for reason: ' + reason);
 			// Checks for the DOM to load using the jQuery ready function.
 			$(document).ready(function () {
 				document.getElementById('Data').innerText = 'Loading: ' + reason.toString();
@@ -24,7 +24,7 @@
 				// After the DOM is loaded, app-specific code can run.
 				// Add any initialization logic to this function.
 			});
-		};
+		}
 	
 
 	</script>
