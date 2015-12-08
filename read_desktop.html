@@ -19,7 +19,6 @@
 			// Checks for the DOM to load using the jQuery ready function.
 			$(document).ready(function () {
 				document.getElementById('Data').innerText = 'Loading: ' + reason.toString();
-				app.initialize();
 				document.getElementById('Data').innerText += ' Loaded';
 				// After the DOM is loaded, app-specific code can run.
 				// Add any initialization logic to this function.
@@ -29,7 +28,7 @@
 
 	</script>
         <p>We've detected a claim number in this email.  Would you like us to file this in Navigator?</p>
-		
+		<input type=text id="ClaimNumber"></input>
 		<input type=button value="File In Navigator" onclick="DoIt();"></input>
 		<div id="Data"></div>
     </body>
