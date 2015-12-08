@@ -22,13 +22,21 @@
 				document.getElementById('Data').innerText += ' Loaded';
 				// After the DOM is loaded, app-specific code can run.
 				// Add any initialization logic to this function.
+				
+				var claimId = Office.context.mailbox.item.getRegExMatches().ClaimID[0];
+				document.getElementById('ClaimNumber').value = claimId;
+				
 			});
+		}
+		
+		function DoIt(){
+			//Create new mail message?
 		}
 	
 
 	</script>
         <p>We've detected a claim number in this email.  Would you like us to file this in Navigator?</p>
-		<input type=text id="ClaimNumber"></input>
+		Claim ID: <input type=text id="ClaimNumber"></input><br/>
 		<input type=button value="File In Navigator" onclick="DoIt();"></input>
 		<div id="Data"></div>
     </body>
