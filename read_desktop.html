@@ -25,7 +25,15 @@
 				// After the DOM is loaded, app-specific code can run.
 				// Add any initialization logic to this function.
 				
-				var claimId = Office.context.mailbox.item.getRegExMatches().ClaimID[0];
+				var claimId = null;
+
+				try{
+					claimId = Office.context.mailbox.item.getRegExMatches().ClaimID[0];
+					}catch{;}
+				if(claimId == null){
+					claimId = Office.context.mailbox.item.getRegExMatches().ClaimIDSubject[0];
+				}
+				
 				document.getElementById('ClaimNumber').value = claimId;
 				}catch(E){
 					errorOnLoad = E;

@@ -59,10 +59,16 @@
   <Rule xsi:type="RuleCollection" Mode="Or">
     <Rule xsi:type="RuleCollection" Mode="And">
       <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read" />
-      <Rule xsi:type="ItemHasRegularExpressionMatch" 
+      <Rule xsi:type="RuleCollection" Mode="Or">
+       <Rule xsi:type="ItemHasRegularExpressionMatch" 
+        PropertyName="Subject" RegExName="ClaimIDSubject" 
+        RegExValue=
+        "[a-zA-Z0-9]{9}-[a-zA-Z0-9]{2}" />
+       <Rule xsi:type="ItemHasRegularExpressionMatch" 
         PropertyName="BodyAsPlaintext" RegExName="ClaimID" 
         RegExValue=
         "[a-zA-Z0-9]{9}-[a-zA-Z0-9]{2}" />
+      </Rule>
     </Rule>
     <Rule xsi:type="RuleCollection" Mode="Or">
       <Rule xsi:type="ItemIs" ItemType="Appointment" FormType="Edit" />
