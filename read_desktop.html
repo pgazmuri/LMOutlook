@@ -29,7 +29,7 @@
 
 				try{
 					claimId = Office.context.mailbox.item.getRegExMatches().ClaimID[0];
-					}catch{}
+					}catch(ignore){}
 				if(claimId == null){
 					claimId = Office.context.mailbox.item.getRegExMatches().ClaimIDSubject[0];
 				}
