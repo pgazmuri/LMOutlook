@@ -11,12 +11,14 @@
 		<script type="text/javascript">
 		var isLoadedOK = false;
 		var docLoadCalled = false;
+		var errorOnLoad = null;
 		// The initialize function is required for all apps.
 		Office.initialize = function (reason) {
 			isLoadedOK = true;
 			// Checks for the DOM to load using the jQuery ready function.
 			$(document).ready(function(){
 				docLoadCalled = true;
+				try{
 				document.getElementById('Data').innerText = 'Loading: ' + reason.toString();
 				document.getElementById('Data').innerText += ' Loaded';
 				// After the DOM is loaded, app-specific code can run.
@@ -24,6 +26,10 @@
 				
 				var claimId = Office.context.mailbox.item.getRegExMatches().ClaimID[0];
 				document.getElementById('ClaimNumber').value = claimId;
+				}catch(E){
+					errorOnLoad = E;
+				}
+				
 				});
 		};
 		
