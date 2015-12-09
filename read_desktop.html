@@ -29,7 +29,7 @@
 
 				try{
 					claimId = Office.context.mailbox.item.getRegExMatches().ClaimID[0];
-					}catch{;}
+					}catch{}
 				if(claimId == null){
 					claimId = Office.context.mailbox.item.getRegExMatches().ClaimIDSubject[0];
 				}
@@ -201,7 +201,7 @@
     </head>
     <body class="ms-font-m-plus">
 	
-		<img src="Logo.png"/><span style="position:relative;top:-15px; left:15px;" class="ms-font-xxl ms-fontColor-themePrimary">Liberty Mutual Claims Processor</span>
+		<img src="Logo.png"/><span style="position:relative;top:-25px; left:15px;" class="ms-font-xxl ms-fontColor-themePrimary">Liberty Mutual Claims Processor</span>
 		<br/>
         <p>We've detected a claim number in this email.  Would you like us to file this in Navigator?</p>
 		Claim ID: <input type=text id="ClaimNumber"></input><br/><br/>
