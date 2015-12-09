@@ -3,6 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+		<link rel="stylesheet" href="//appsforoffice.microsoft.com/fabric/1.0/fabric.min.css">
+		<link rel="stylesheet" href="//appsforoffice.microsoft.com/fabric/1.0/fabric.components.min.css">
         <link rel="stylesheet" type="text/css" href="OutlookApp.css" />
 		<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="https://appsforoffice.microsoft.com/lib/1/hosted/Office.js" type="text/javascript"></script>
@@ -189,9 +191,10 @@
 	</script>
 		
     </head>
-    <body>
+    <body class=".ms-font-m-plus">
 	
-		<img src="Logo.png"/><br/>
+		<img src="Logo.png"/><span class=".ms-font-xxl">Liberty Mutual Claims Processor</span>
+		<br/>
         <p>We've detected a claim number in this email.  Would you like us to file this in Navigator?</p>
 		Claim ID: <input type=text id="ClaimNumber"></input><br/><br/>
 		<input type=button value="File In Navigator" onclick="sendNow();"></input>
