@@ -10,11 +10,13 @@
 		
 		<script type="text/javascript">
 		var isLoadedOK = false;
+		var docLoadCalled = false;
 		// The initialize function is required for all apps.
 		Office.initialize = function (reason) {
 			isLoadedOK = true;
 			// Checks for the DOM to load using the jQuery ready function.
 			$(document).ready(function(){
+				docLoadCalled - true;
 				document.getElementById('Data').innerText = 'Loading: ' + reason.toString();
 				document.getElementById('Data').innerText += ' Loaded';
 				// After the DOM is loaded, app-specific code can run.
