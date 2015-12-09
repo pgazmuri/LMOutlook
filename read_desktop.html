@@ -17,7 +17,7 @@
 		Office.initialize = function (reason) {
 			
 			// Checks for the DOM to load using the jQuery ready function.
-			$(document).ready(function () {
+			
 				document.getElementById('Data').innerText = 'Loading: ' + reason.toString();
 				document.getElementById('Data').innerText += ' Loaded';
 				// After the DOM is loaded, app-specific code can run.
@@ -26,7 +26,6 @@
 				var claimId = Office.context.mailbox.item.getRegExMatches().ClaimID[0];
 				document.getElementById('ClaimNumber').value = claimId;
 				
-			});
 		};
 		
 		
