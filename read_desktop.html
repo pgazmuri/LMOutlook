@@ -18,8 +18,9 @@
 		var errorOnLoad = null;
 		
 		// The initialize function is required for all apps.
-		var originalOfficeAtInitialization = Office;
 		try{
+		
+		var originalOfficeAtInitialization = JSON.stringify(Office);
 		Office.initialize = function (reason) {
 			isLoadedOK = true;
 			// Checks for the DOM to load using the jQuery ready function.
@@ -223,7 +224,7 @@
 	}
 	
 	function debugHelp(){
-		document.write('isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + originalOfficeAtInitialization);
+		document.write('isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + originalOfficeAtInitialization + " Initialize:" + Office.initialize);
 	}
 
 	</script>
