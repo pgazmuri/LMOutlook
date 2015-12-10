@@ -224,9 +224,9 @@
 	}
 	
 	function debugHelp(){
-		location.reload();
+		window.location.href = "read_desktop.html?reload";
 		
-		document.write('isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + originalOfficeAtInitialization + " Initialize:" + Office.initialize + " <br/><br/>Context:" + JSON.stringify(Office.context));
+		//document.write('isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + originalOfficeAtInitialization + " Initialize:" + Office.initialize + " <br/><br/>Context:" + JSON.stringify(Office.context));
 	}
 
 	</script>
