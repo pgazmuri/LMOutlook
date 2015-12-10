@@ -228,12 +228,15 @@
 		<div id="AppMain" style="display:none;">
         <p>We've detected a claim number in this email.  Would you like us to file this in Navigator?</p>
 		
-		<div class="ms-TextField">
-		<label class="ms-Label">Claim ID</label>
-		<input type=text class="ms-TextField-field" id="ClaimNumber"></input>&nbsp;&nbsp;
-		<span class="ms-TextField-description">Please correct the claim ID if it is not correct.</span>
+		<div class="ms-TextField" style="float:left;">
+			<label class="ms-Label" style="display:inline;">Claim ID:&nbsp;</label>
+			<input type=text class="ms-TextField-field" id="ClaimNumber"></input><br/>
+			<span class="ms-TextField-description">Please correct the claim ID if it is not correct.</span>
 		</div>
+		<div style="float:left;margin-left:15px;">
 		<a href="javascript:sendNow();" class="ms-Button ms-Button--primary" style="text-decoration:none;"><span class="ms-Button-label" style="text-decoration:none;">File in Navigator</span></a></p>
+		</div>
+		<div style="clear:both;"></div>
 		<div id="Data"></div>
 		</div>
 		<div id="Loading">
