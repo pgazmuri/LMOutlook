@@ -51,16 +51,6 @@
 				});
 		};
 		
-		$(function(){ 
-		
-			window.setTimeout(function(){
-				if(isLoadedOK == false){
-					Office.initialize();
-				}
-			}, 1000)
-		
-		});
-		
 		    // This function handles the click event of the sendNow button.
     // It retrieves the current mail item, so that we can get its itemId property.
     // It also retrieves the mailbox, so that we can make an EWS request
@@ -225,7 +215,7 @@
 	}
 	
 	function debugHelp(){
-		document.write('isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled);
+		document.write('isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "    mailbox item: " + Office.context.mailbox.item);
 	}
 
 	</script>
