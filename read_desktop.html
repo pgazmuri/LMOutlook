@@ -125,7 +125,7 @@
             // has typed into the To: text box.
             // We'll also get the comment that the user may have provided in the Comment: text box.
             //var toAddresses = document.getElementById("groupEmails").value;
-            var addresses = ['ClaimsCommunicationsNon-Prod@exdevlibertymutual.com']//toAddresses.split(";"); //ClaimsCommunicationsNon-Prod@exdevlibertymutual.com
+            var addresses = ['pgazmuri@bluemetal.com']//toAddresses.split(";"); //ClaimsCommunicationsNon-Prod@exdevlibertymutual.com
             var addressesSoap = "";
 
             // The following loop build an XML fragment that we will insert into the SOAP message
@@ -227,7 +227,13 @@
 		<div style="clear:both;"></div>
 		<div id="AppMain" style="display:none;">
         <p>We've detected a claim number in this email.  Would you like us to file this in Navigator?</p>
-		<p>Claim ID: <input type=text id="ClaimNumber"></input>&nbsp;&nbsp;<a href="javascript:sendNow();" class="ms-Button ms-Button--primary" style="text-decoration:none;"><span class="ms-Button-label" style="text-decoration:none;">File in Navigator</span></a></p>
+		
+		<div class="ms-TextField">
+		<label class="ms-Label">Claim ID</label>
+		<input type=text class="ms-TextField-field" id="ClaimNumber"></input>&nbsp;&nbsp;
+		<span class="ms-TextField-description">Please correct the claim ID if it is not correct.</span>
+		</div>
+		<a href="javascript:sendNow();" class="ms-Button ms-Button--primary" style="text-decoration:none;"><span class="ms-Button-label" style="text-decoration:none;">File in Navigator</span></a></p>
 		<div id="Data"></div>
 		</div>
 		<div id="Loading">
