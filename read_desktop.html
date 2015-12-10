@@ -57,7 +57,7 @@
 					document.getElementById('AppMain').style.display = "none";
 					document.getElementById('Loading').style.display = "none";
 					document.getElementById('Error').style.display = "block";
-					document.getElementById('ErrorMessage').innerText = "The following error occured when bootstrapping Office: " + err.toString();
+					document.getElementById('ErrorMessage').innerText = "The following error occured when bootstrapping Office: " + err;
 		}
 		
 		    // This function handles the click event of the sendNow button.
@@ -226,7 +226,7 @@
 	function debugHelp(){
 		location.reload();
 		
-		document.write('isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + originalOfficeAtInitialization + " Initialize:" + Office.initialize + " <br/><br/>Context:" + JSON.stringify(Office.context);
+		document.write('isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + originalOfficeAtInitialization + " Initialize:" + Office.initialize + " <br/><br/>Context:" + JSON.stringify(Office.context));
 	}
 
 	</script>
