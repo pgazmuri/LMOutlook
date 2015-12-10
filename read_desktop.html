@@ -118,17 +118,20 @@
         }
         else {
             var response = asyncResult.value;
+			var changeKey = "";
             if (window.DOMParser) {
                 var parser = new DOMParser();
                 xmlDoc = parser.parseFromString(response, "text/xml");
+				changeKey = xmlDoc.getElementsByTagName("ItemId")[0].getAttribute("ChangeKey");
             }
             else // Older Versions of Internet Explorer
             {
                 xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
                 xmlDoc.async = false;
                 xmlDoc.loadXML(response);
+				changeKey = xmlDoc.getElementsByTagName("t:ItemId")[0].getAttribute("ChangeKey");
             }
-            var changeKey = xmlDoc.getElementsByTagName("t:ItemId")[0].getAttribute("ChangeKey");
+            
 
             // Now that we have a ChangeKey value, we can use EWS to forward the mail item.
             // The first thing we'll do is get an array of email addresses that the user
@@ -232,12 +235,14 @@
 		window.location.href = "read_desktop.html?reload";
 		
 	}
-
-	setTimeout(function(){
-		if(Office.context == undefined || Office.context.mailbox == undefined){
-			fixTheMacBrokenness();
-		}
-	}, 2000);
+	
+	if(window.location.href.indexOf('?reload') == -1){
+		setTimeout(function(){
+			if(Office.context == undefined || Office.context.mailbox == undefined){
+				fixTheMacBrokenness();
+			}
+		}, 2000);
+	}
 	
 	</script>
 		
