@@ -224,7 +224,7 @@
 	}
 	
 	function debugHelp(){
-		document.write('isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + originalOfficeAtInitialization + " Initialize:" + Office.initialize);
+		document.write('isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + originalOfficeAtInitialization + " Initialize:" + Office.initialize + " <br/><br/>Context:" + JSON.stringify(Office.context);
 	}
 
 	</script>
