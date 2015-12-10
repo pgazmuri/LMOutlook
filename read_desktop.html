@@ -196,21 +196,23 @@
         }
         else {
             var response = asyncResult.value;
+			var result = "Error parsing result from SOAP XML";
             if (window.DOMParser) {
                 parser = new DOMParser();
                 xmlDoc = parser.parseFromString(response, "text/xml");
+				result = xmlDoc.getElementsByTagName("ResponseCode")[0].textContent;
             }
             else // Older Versions of Internet Explorer
             {
                 xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
                 xmlDoc.async = false;
                 xmlDoc.loadXML(response);
+				result = xmlDoc.getElementsByTagName("m:ResponseCode")[0].textContent;
             }
 
             // Get the required response, and if it's NoError then all has succeeded, so tell the user.
             // Otherwise, tell them what the problem was. (E.G. Recipient email addresses might have been
             // entered incorrectly --- try it and see for yourself what happens!!)
-            var result = xmlDoc.getElementsByTagName("m:ResponseCode")[0].textContent;
             if (result == "NoError") {
                 document.getElementById('Success').style.display = "block";
 				document.getElementById('AppMain').style.display = "block";
