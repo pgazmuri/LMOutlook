@@ -223,19 +223,21 @@
 
 	}
 	
+	function debugHelp(){
+		document.write('Context Undefined - isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + originalOfficeAtInitialization + " Initialize:" + Office.initialize + " <br/><br/>Context:" + JSON.stringify(Office.context));
+		Office.context = "something to stop refresh";
+	}
+	
 	function fixTheMacBrokenness(){
-		//window.location.href = "read_desktop.html?reload";
+		window.location.href = "read_desktop.html?reload";
 		
 	}
 
-	if(Office.context == undefined){
-		//fixTheMacBrokenness();
-		document.write('Context Undefined - isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + originalOfficeAtInitialization + " Initialize:" + Office.initialize + " <br/><br/>Context:" + JSON.stringify(Office.context));
-	
-	}else if(Office.context.mailbox == undefined){
-		document.write('Context.mailbox Undefined - isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + originalOfficeAtInitialization + " Initialize:" + Office.initialize + " <br/><br/>Context:" + JSON.stringify(Office.context));
-	
-	}
+	setTimeout(function(){
+		if(Office.context == undefined){
+			fixTheMacBrokenness();
+		}
+	}, 2000);
 	
 	</script>
 		
