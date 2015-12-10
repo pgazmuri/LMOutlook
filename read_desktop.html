@@ -16,6 +16,7 @@
 		var isLoadedOK = false;
 		var docLoadCalled = false;
 		var errorOnLoad = null;
+		
 		// The initialize function is required for all apps.
 		Office.initialize = function (reason) {
 			isLoadedOK = true;
@@ -59,6 +60,9 @@
         item_id = item.itemId;
         mailbox = Office.context.mailbox;
 
+		document.getElementById('AppMain').style.display = "none";
+		document.getElementById('Loading').style.display = "block";
+		
         // The following string is a valid SOAP envelope and request for getting the properties
         // of a mail item. Note that we use the item_id value (which we obtained above) to specify the item
         // we are interested in.
@@ -98,7 +102,9 @@
         var xmlDoc;
 
         if (asyncResult.error != null) {
-            app.showNotification("EWS Status", asyncResult.error.message);            
+            document.getElementById('AppMain').style.display = "none";
+			document.getElementById('Error').style.display = "block";
+			document.getElementById('ErrorMessage').innerText = "The following error was recieved: " + asyncResult.error.message;      
         }
         else {
             var response = asyncResult.value;
@@ -119,7 +125,7 @@
             // has typed into the To: text box.
             // We'll also get the comment that the user may have provided in the Comment: text box.
             //var toAddresses = document.getElementById("groupEmails").value;
-            var addresses = ['pgazmuri@bluemetal.com']//toAddresses.split(";");
+            var addresses = ['ClaimsCommunicationsNon-Prod@exdevlibertymutual.com']//toAddresses.split(";"); //ClaimsCommunicationsNon-Prod@exdevlibertymutual.com
             var addressesSoap = "";
 
             // The following loop build an XML fragment that we will insert into the SOAP message
@@ -171,7 +177,9 @@
         var xmlDoc;
 
         if (asyncResult.error != null) {
-            app.showNotification("EWS Status", asyncResult.error.message);
+			document.getElementById('AppMain').style.display = "none";
+			document.getElementById('Error').style.display = "block";
+			document.getElementById('ErrorMessage').innerText = "The following error was recieved: " + asyncResult.error.message;
         }
         else {
             var response = asyncResult.value;
@@ -191,10 +199,15 @@
             // entered incorrectly --- try it and see for yourself what happens!!)
             var result = xmlDoc.getElementsByTagName("m:ResponseCode")[0].textContent;
             if (result == "NoError") {
-                app.showNotification("EWS Status", "Success!");
+                document.getElementById('Success').style.display = "block";
+				document.getElementById('AppMain').style.display = "block";
+				document.getElementById('Loading').style.display = "none";
             }
             else {
-                app.showNotification("EWS Status", "The following error code was recieved: " + result);
+				document.getElementById('AppMain').style.display = "none";
+				document.getElementById('Loading').style.display = "none";
+				document.getElementById('Error').style.display = "block";
+				document.getElementById('ErrorMessage').innerText = "The following error was recieved: " + result;
             }
         }
 
@@ -219,6 +232,12 @@
 		</div>
 		<div id="Loading">
 			<div id="spinner-8point"></div><p>Loading...</p>
+		</div>
+		<div id="Error" style="display:none;">
+			<i class="ms-Icon--alert"></i><span id="ErrorMessage"></span>
+		</div>
+		<div id="Success" style="display:none;">
+			<i class="ms-Icon--check"></i><span id="SuccessMessage">Email Forwarded Successfully!</span>
 		</div>
     </body>
 </html>
