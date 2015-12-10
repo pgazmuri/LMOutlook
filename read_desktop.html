@@ -224,7 +224,7 @@
 	}
 	
 	function debugHelp(){
-		document.write('Context Undefined - isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + originalOfficeAtInitialization + " Initialize:" + Office.initialize + " <br/><br/>Context:" + JSON.stringify(Office.context));
+		document.write('isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + originalOfficeAtInitialization + " Initialize:" + Office.initialize + " <br/><br/>Context:" + JSON.stringify(Office.context));
 		Office.context = "something to stop refresh";
 	}
 	
@@ -234,7 +234,7 @@
 	}
 
 	setTimeout(function(){
-		if(Office.context == undefined){
+		if(Office.context == undefined || Office.context.mailbox == undefined){
 			fixTheMacBrokenness();
 		}
 	}, 2000);
