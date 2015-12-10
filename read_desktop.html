@@ -51,6 +51,15 @@
 				});
 		};
 		
+		$(function(){ 
+		
+			window.setTimeout(function(){
+				if(isLoadedOK == false){
+					Office.initialize();
+				}
+			}, 1000)
+		
+		});
 		
 		    // This function handles the click event of the sendNow button.
     // It retrieves the current mail item, so that we can get its itemId property.
