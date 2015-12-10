@@ -24,7 +24,6 @@
 			$(function(){
 				docLoadCalled = true;
 				try{
-				debugger;
 				// After the DOM is loaded, app-specific code can run.
 				// Add any initialization logic to this function.
 				
@@ -216,13 +215,16 @@
 
 	}
 	
+	function debugHelp(){
+		document.write('isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled);
+	}
 
 	</script>
 		
     </head>
     <body class="ms-font-m-plus">
 		<div style="float:left;">
-		<img src="Logo.png"/><span style="position:relative;top:-25px; left:15px;" class="ms-font-xxl ms-fontColor-themePrimary">Liberty Mutual Claims Processor</span>
+		<img src="Logo.png"/><span style="position:relative;top:-25px; left:15px;" class="ms-font-xxl ms-fontColor-themePrimary">Liberty Mutual Claims Processor  <a href="javascript:debugHelp();">debug</a></span>
 		</div>
 		<div style="float:right;">
 			<img width=64 src="NavigatorIcon.jpg"/>
@@ -242,8 +244,8 @@
 		</div>
 		<div style="clear:both;"></div>
 		</div>
-		<div id="Loading">
-			<div id="spinner-8point"></div><p>Loading...</p>
+		<div id="Loading" style="margin:auto;">
+			<div id="spinner-8point"></div><p>Working...</p>
 		</div>
 		<div id="Error" style="display:none;">
 			<i class="ms-Icon--alert"></i><span id="ErrorMessage"></span>
