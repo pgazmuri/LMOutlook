@@ -205,8 +205,13 @@
 		
     </head>
     <body class="ms-font-m-plus">
-	
+		<div style="float:left;">
 		<img src="Logo.png"/><span style="position:relative;top:-25px; left:15px;" class="ms-font-xxl ms-fontColor-themePrimary">Liberty Mutual Claims Processor</span>
+		</div>
+		<div style="float:right;">
+			<img width=64 src="NavigatorIcon.jpg"/>
+		</div>
+		<div style="clear:both;"></div>
 		<div id="AppMain" style="display:none;">
         <p>We've detected a claim number in this email.  Would you like us to file this in Navigator?</p>
 		<p>Claim ID: <input type=text id="ClaimNumber"></input>&nbsp;&nbsp;<a href="javascript:sendNow();" class="ms-Button ms-Button--primary" style="text-decoration:none;"><span class="ms-Button-label" style="text-decoration:none;">File in Navigator</span></a></p>
