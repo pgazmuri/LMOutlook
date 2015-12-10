@@ -18,6 +18,8 @@
 		var errorOnLoad = null;
 		
 		// The initialize function is required for all apps.
+		var originalOfficeAtInitialization = Office;
+		try{
 		Office.initialize = function (reason) {
 			isLoadedOK = true;
 			// Checks for the DOM to load using the jQuery ready function.
@@ -50,6 +52,12 @@
 				
 				});
 		};
+		}catch(err){
+					document.getElementById('AppMain').style.display = "none";
+					document.getElementById('Loading').style.display = "none";
+					document.getElementById('Error').style.display = "block";
+					document.getElementById('ErrorMessage').innerText = "The following error occured when bootstrapping Office: " + err.toString();
+		}
 		
 		    // This function handles the click event of the sendNow button.
     // It retrieves the current mail item, so that we can get its itemId property.
@@ -215,7 +223,7 @@
 	}
 	
 	function debugHelp(){
-		document.write('isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + Office);
+		document.write('isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + originalOfficeAtInitialization);
 	}
 
 	</script>
