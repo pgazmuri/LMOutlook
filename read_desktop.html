@@ -40,7 +40,9 @@
 				document.getElementById('ClaimNumber').value = claimId;
 				}catch(E){
 					errorOnLoad = E;
-					document.getElementById('Data').innerText = "Error: " +  E.toString();
+					document.getElementById('AppMain').style.display = "none";
+					document.getElementById('Error').style.display = "block";
+					document.getElementById('ErrorMessage').innerText = "The following error occured when loading the claimID: " + E.toString();
 				}
 				
 				document.getElementById('AppMain').style.display = "block";
@@ -225,7 +227,7 @@
 			<img width=64 src="NavigatorIcon.jpg"/>
 		</div>
 		<div style="clear:both;"></div>
-		<div id="AppMain" style="display: block;">
+		<div id="AppMain" style="display: none;">
 			<p>We've detected a claim number in this email.  Would you like to file this in Navigator?</p>
 			
 			<div class="ms-TextField" style="float:left;">
@@ -238,7 +240,6 @@
 			<a href="javascript:sendNow();" class="ms-Button ms-Button--primary" style="text-decoration:none;"><span class="ms-Button-label" style="text-decoration:none;">File in Navigator</span></a><p></p>
 		</div>
 		<div style="clear:both;"></div>
-		<div id="Data"></div>
 		</div>
 		<div id="Loading">
 			<div id="spinner-8point"></div><p>Loading...</p>
