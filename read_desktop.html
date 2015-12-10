@@ -41,6 +41,7 @@
 				}catch(E){
 					errorOnLoad = E;
 					document.getElementById('AppMain').style.display = "none";
+					document.getElementById('Loading').style.display = "none";
 					document.getElementById('Error').style.display = "block";
 					document.getElementById('ErrorMessage').innerText = "The following error occured when loading the claimID: " + E.toString();
 				}
