@@ -227,11 +227,11 @@
             // entered incorrectly --- try it and see for yourself what happens!!)
             if (result == "NoError") {
                 document.getElementById('Success').style.display = "block";
-				document.getElementById('AppMain').style.display = "block";
+				document.getElementById('AppMain').style.display = "none";
 				document.getElementById('Loading').style.display = "none";
             }
             else {
-				document.getElementById('AppMain').style.display = "none";
+				document.getElementById('AppMain').style.display = "block";
 				document.getElementById('Loading').style.display = "none";
 				document.getElementById('Error').style.display = "block";
 				document.getElementById('ErrorMessage').innerText = "The following error was recieved: " + result;
@@ -263,7 +263,7 @@
     </head>
     <body class="ms-font-m-plus">
 		<div style="float:left;">
-		<img src="Logo.png"/><span style="position:relative;top:-25px; left:15px;" class="ms-font-xxl ms-fontColor-themePrimary">Liberty Mutual Claims Processor  <a href="javascript:debugHelp();">debug</a></span>
+		<img src="Logo.png"/><span style="position:relative;top:-25px; left:15px;" class="ms-font-xxl ms-fontColor-themePrimary">Liberty Mutual Claims Processor</span>
 		</div>
 		<div style="float:right;">
 			<img width=64 src="NavigatorIcon.jpg"/>
@@ -287,10 +287,10 @@
 			<div id="spinner-8point"></div><p>Working...</p>
 		</div>
 		<div id="Error" style="display:none;">
-			<i class="ms-Icon--alert"></i><span id="ErrorMessage"></span>
+			<i class="ms-Icon ms-Icon--alert"></i><span id="ErrorMessage"></span>
 		</div>
 		<div id="Success" style="display:none;">
-			<i class="ms-Icon--check"></i><span id="SuccessMessage">Email Forwarded Successfully!</span>
+			<i class="ms-Icon ms-Icon--check"></i><span id="SuccessMessage">Email Forwarded Successfully!</span>
 		</div>
     </body>
 </html>
