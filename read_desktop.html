@@ -122,16 +122,21 @@
             if (window.DOMParser) {
                 var parser = new DOMParser();
                 xmlDoc = parser.parseFromString(response, "text/xml");
-				changeKey = xmlDoc.getElementsByTagName("ItemId")[0].getAttribute("ChangeKey");
             }
             else // Older Versions of Internet Explorer
             {
                 xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
                 xmlDoc.async = false;
                 xmlDoc.loadXML(response);
-				changeKey = xmlDoc.getElementsByTagName("t:ItemId")[0].getAttribute("ChangeKey");
+				
             }
             
+			//we have to try getting the element both ways....
+			try{
+				changeKey = xmlDoc.getElementsByTagName("t:ItemId")[0].getAttribute("ChangeKey");
+			}catch(E){
+				changeKey = xmlDoc.getElementsByTagName("ItemId")[0].getAttribute("ChangeKey");
+			}
 
             // Now that we have a ChangeKey value, we can use EWS to forward the mail item.
             // The first thing we'll do is get an array of email addresses that the user
@@ -200,7 +205,7 @@
             if (window.DOMParser) {
                 parser = new DOMParser();
                 xmlDoc = parser.parseFromString(response, "text/xml");
-				result = xmlDoc.getElementsByTagName("ResponseCode")[0].textContent;
+				
             }
             else // Older Versions of Internet Explorer
             {
@@ -209,6 +214,13 @@
                 xmlDoc.loadXML(response);
 				result = xmlDoc.getElementsByTagName("m:ResponseCode")[0].textContent;
             }
+			
+			//we have to try getting the element both ways....
+			try{
+				result = xmlDoc.getElementsByTagName("ResponseCode")[0].textContent;
+			}catch(E){
+				result = xmlDoc.getElementsByTagName("m:ResponseCode")[0].textContent;
+			}
 
             // Get the required response, and if it's NoError then all has succeeded, so tell the user.
             // Otherwise, tell them what the problem was. (E.G. Recipient email addresses might have been
