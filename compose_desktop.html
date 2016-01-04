@@ -21,18 +21,48 @@
 			$(document).ready(function(){
 				docLoadCalled = true;
 				
+				//load snippets
+				//SnippetData = [];
+				layoutTemplates();
 				
 				});
 		};
 		
-		
+		var SnippetData = [{name:"Header", cat:"General Content", desc:"Standard Email Header", date:"1/4/2015", content:"<h1>This is the header</h1>And some other content<br/><br/>"}];
 
+		function layoutTemplates(){
+			var html = $('#itemTemplate')[0].outerHTML;
+			
+			for(var i =0; i < SnippetData.length;i++){
+				var item = SnippetData[i];
+				html = html.replace('[name]', item.name).replace('[cat]', item.cat).replace('[desc]', item.cat).replace('[date]', item.cat);
+				$item = $(html);
+				$item.attr('content', item.content);
+				$('body').append($item);
+			}
+		}
+		
 	</script>
+	<style>
+		#itemTemplate{display:none;}
+	</style>
 		
     </head>
     <body class="ms-font-m-plus">
 	
+		<div id="itemTemplate" class="ms-ListItem is-unread is-selectable">
+		  <span class="ms-ListItem-primaryText">[name]</span> 
+		  <span class="ms-ListItem-secondaryText">[cat]</span> 
+		  <span class="ms-ListItem-tertiaryText">[desc]</span> 
+		  <span class="ms-ListItem-metaText">[date]</span>
+		  <div class="ms-ListItem-selectionTarget js-toggleSelection"></div>
+		  <div class="ms-ListItem-actions">
+			<div class="ms-ListItem-action"></div>
+			<div class="ms-ListItem-action"></div>
+			<div class="ms-ListItem-action"></div>
+			<div class="ms-ListItem-action"></div>
+		  </div>
+		</div>
 		
-        Do stuff here....
     </body>
 </html>
