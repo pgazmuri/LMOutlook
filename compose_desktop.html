@@ -29,7 +29,8 @@
 		};
 		
 		var SnippetData = [{name:"Header", cat:"General Content", desc:"Standard Email Header", date:"1/4/2015", content:"<h1>This is the header</h1>And some other content<br/><br/>"}];
-
+		
+		
 		function layoutTemplates(){
 			var html = $('#itemTemplate')[0].outerHTML;
 			
@@ -37,8 +38,24 @@
 				var item = SnippetData[i];
 				html = html.replace('[name]', item.name).replace('[cat]', item.cat).replace('[desc]', item.desc).replace('[date]', item.date);
 				$item = $(html);
-				$item.attr('id', '');
+				$item.attr('id', 'snippet_' + i.toString());
 				$item.attr('content', item.content);
+				$item.click(function(){
+					if($(this).attr('class').indexOf('is-selected') == -1){
+						$(this).addClass('is-selected');
+						//insert snippet into email, marking with ID?
+						var CurrentSnippetHTML = $(this).attr('content');
+						Office.context.mailbox.item.body.getAsync("html", {asyncContext: CurrentSnippetHTML}, function callback(result){
+							var newBody = result.value + "<br/>" + CurrentSnippetHTML;
+							Office.context.mailbox.item.body.setAsync(
+								newBody,
+								{ coercionType:"html", asyncContext:"This is passed to the callback" });
+						});
+					}else{
+						$(this).removeClass('is-selected');
+					}
+					
+				});
 				$('body').append($item);
 			}
 		}
