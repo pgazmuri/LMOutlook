@@ -68,7 +68,7 @@
     function sendNow() {
 		
 		var claimID = document.getElementById("ClaimNumber").value;
-		if(! /^[0-9]{9}((-[0-9]{2})?)$/.test(claimID)){
+		if(! /^[a-zA-Z0-9]{9}((-[a-zA-Z0-9]{2})?)$/.test(claimID)){
 					document.getElementById('Error').style.display = "block";
 					document.getElementById('ErrorMessage').innerText = "The Claim ID is invalid.";
 					return;
@@ -161,6 +161,8 @@
                 addressesSoap += "<t:Mailbox><t:EmailAddress>" + addresses[address] + "</t:EmailAddress></t:Mailbox>";
             }
             var comment = 'Forwarded from PI Claims Navigator - Claim Number: ' + document.getElementById("ClaimNumber").value;
+			var newSubject = document.getElementById("ClaimNumber").value + " - " + Office.context.mailbox.item.subject;
+			
 
             // The following string is a valid SOAP envelope and request for forwarding
             // a mail item. Note that we use the item_id value (which we obtained in the click event handler)
@@ -182,6 +184,7 @@
                 '      <m:Items>' +
                 '        <t:ForwardItem>' +
                 '          <t:ToRecipients>' + addressesSoap + '</t:ToRecipients>' +
+                '          <t:Subject>' + newSubject + '</t:Subject>' +
                 '          <t:ReferenceItemId Id="' + item_id + '" ChangeKey="' + changeKey + '" />' +
                 '          <t:NewBodyContent BodyType="Text">' + comment + '</t:NewBodyContent>' +
                 '        </t:ForwardItem>' +
