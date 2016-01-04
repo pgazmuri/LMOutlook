@@ -8,8 +8,8 @@
   <Version>1.0</Version>
   <ProviderName>BlueMetal</ProviderName>
   <DefaultLocale>en-us</DefaultLocale>
-  <DisplayName DefaultValue="Claims Email Processor"/>
-  <Description DefaultValue="Detects Emails with Claim numbers and allows for forwarding to Navigator.">
+  <DisplayName DefaultValue="PI Claims Navigator"/>
+  <Description DefaultValue="Assists with filing and creation of PI claims emails.">
     <Override Locale="fr-fr" Value="Visualisez les Claims"/>
   </Description>
   <!-- Change the following line to specify    -->
@@ -63,7 +63,7 @@
        <Rule xsi:type="ItemHasRegularExpressionMatch" 
         PropertyName="Subject" RegExName="ClaimIDSubject" 
         RegExValue=
-        "[a-zA-Z0-9]{9}-[a-zA-Z0-9]{2}" />
+        "[a-zA-Z0-9]{9}(-[a-zA-Z0-9]{2})?" />
        
     </Rule>
     <Rule xsi:type="RuleCollection" Mode="Or">

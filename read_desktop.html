@@ -66,6 +66,15 @@
     // to get more properties of the item. In our case, we are interested in the ChangeKey
     // property, becuase we need that to forward a mail item.
     function sendNow() {
+		
+		var claimID = document.getElementById("ClaimNumber").value;
+		if(! /^[0-9]{9}(-[0-9]{2})?$/.test(claimID)){
+					document.getElementById('Error').style.display = "block";
+					document.getElementById('ErrorMessage').innerText = "The Claim ID is invalid.";
+		}else{
+			document.getElementById('Error').style.display = "none";
+		}
+	
         var item = Office.context.mailbox.item;
         item_id = item.itemId;
         mailbox = Office.context.mailbox;
@@ -150,7 +159,7 @@
             for (var address = 0; address < addresses.length; address++) {
                 addressesSoap += "<t:Mailbox><t:EmailAddress>" + addresses[address] + "</t:EmailAddress></t:Mailbox>";
             }
-            var comment = 'Associated Claim Number: ' + document.getElementById("ClaimNumber").value;
+            var comment = 'Forwarded from PI Claims Navigator - Claim Number: ' + document.getElementById("ClaimNumber").value;
 
             // The following string is a valid SOAP envelope and request for forwarding
             // a mail item. Note that we use the item_id value (which we obtained in the click event handler)
@@ -263,7 +272,7 @@
     </head>
     <body class="ms-font-m-plus">
 		<div style="float:left;">
-		<img src="Logo.png"/><span style="position:relative;top:-25px; left:15px;" class="ms-font-xxl ms-fontColor-themePrimary">Liberty Mutual Claims Processor</span>
+		<img src="Logo.png"/><span style="position:relative;top:-25px; left:15px;" class="ms-font-xxl ms-fontColor-themePrimary">PI Claims Navigator</span>
 		</div>
 		<div style="float:right;">
 			<img width=64 src="NavigatorIcon.jpg"/>
