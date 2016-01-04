@@ -68,9 +68,10 @@
     function sendNow() {
 		
 		var claimID = document.getElementById("ClaimNumber").value;
-		if(! /^[0-9]{9}(-[0-9]{2})?$/.test(claimID)){
+		if(! /^[0-9]{9}((-[0-9]{2})?)$/.test(claimID)){
 					document.getElementById('Error').style.display = "block";
 					document.getElementById('ErrorMessage').innerText = "The Claim ID is invalid.";
+					return;
 		}else{
 			document.getElementById('Error').style.display = "none";
 		}
