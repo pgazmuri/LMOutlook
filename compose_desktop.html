@@ -37,6 +37,7 @@
 				var item = SnippetData[i];
 				html = html.replace('[name]', item.name).replace('[cat]', item.cat).replace('[desc]', item.desc).replace('[date]', item.date);
 				$item = $(html);
+				$item.attr('id', '');
 				$item.attr('content', item.content);
 				$('body').append($item);
 			}
