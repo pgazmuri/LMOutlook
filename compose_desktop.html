@@ -45,11 +45,14 @@
 						$(this).addClass('is-selected');
 						//insert snippet into email, marking with ID?
 						var CurrentSnippetHTML = $(this).attr('content');
-						Office.context.mailbox.item.body.getAsync("html", {asyncContext: CurrentSnippetHTML}, function callback(result){
+						Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, {asyncContext: CurrentSnippetHTML}, function callback(result){
+							log('gotAsync: ' + result.status);
 							var newBody = result.value + "<br/>" + CurrentSnippetHTML;
 							Office.context.mailbox.item.body.setAsync(
 								newBody,
-								{ coercionType:"html", asyncContext:"This is passed to the callback" });
+								{ coercionType:Office.CoercionType.Html, asyncContext:"This is passed to the callback" }, function callback(resultinner){
+									log('setAsync: ' + resultinner.status);
+								});
 						});
 					}else{
 						$(this).removeClass('is-selected');
@@ -58,6 +61,11 @@
 				});
 				$('body').append($item);
 			}
+		}
+		
+		function log(str){
+			
+				$('body').append('<br/>' + str);
 		}
 		
 	</script>
