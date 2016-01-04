@@ -44,16 +44,26 @@
 					if($(this).attr('class').indexOf('is-selected') == -1){
 						$(this).addClass('is-selected');
 						//insert snippet into email, marking with ID?
-						var CurrentSnippetHTML = $(this).attr('content');
-						Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, {asyncContext: CurrentSnippetHTML}, function callback(result){
-							log('gotAsync: ' + result.status);
-							var newBody = result.value + "<br/>" + CurrentSnippetHTML;
-							Office.context.mailbox.item.body.setAsync(
-								newBody,
-								{ coercionType:Office.CoercionType.Html, asyncContext:"This is passed to the callback" }, function callback(resultinner){
-									log('setAsync: ' + resultinner.status);
-								});
-						});
+						log('item selected');
+						try{
+							var CurrentSnippetHTML = $(this).attr('content');
+							log('content: ' + CurrentSnippetHTML);
+							Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, {asyncContext: CurrentSnippetHTML}, function callback(result){
+								log('gotAsync: ' + result.status);
+								var newBody = result.value + "<br/>" + CurrentSnippetHTML;
+								try{
+									Office.context.mailbox.item.body.setAsync(
+										newBody,
+										{ coercionType:Office.CoercionType.Html, asyncContext:"This is passed to the callback" }, function callback(resultinner){
+											log('setAsync: ' + resultinner.status);
+										});
+								}catch(E){
+									log('Error: ' + E.toString());
+								}
+							});
+						}catch(E){
+							log('Error: ' + E.toString());
+						}
 					}else{
 						$(this).removeClass('is-selected');
 					}
