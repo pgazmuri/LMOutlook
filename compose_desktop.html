@@ -41,10 +41,8 @@
 				$item.attr('id', 'snippet_' + i.toString());
 				$item.attr('content', item.content);
 				$item.click(function(){
-					if($(this).attr('class').indexOf('is-selected') == -1){
-						$(this).addClass('is-selected');
-						//insert snippet into email, marking with ID?
-						log('item selected');
+					
+						
 						try{
 							var CurrentSnippetHTML = $(this).attr('content');
 							/*log('content: ' + CurrentSnippetHTML);
@@ -74,9 +72,7 @@
 						}catch(E){
 							log('Error: ' + E.toString());
 						}
-					}else{
-						$(this).removeClass('is-selected');
-					}
+					
 					
 				});
 				$('body').append($item);
@@ -96,7 +92,7 @@
     </head>
     <body class="ms-font-m-plus">
 	
-		<div id="itemTemplate" class="ms-ListItem is-unread is-selectable">
+		<div id="itemTemplate" class="ms-ListItem is-unread">
 		  <span class="ms-ListItem-primaryText">[name]</span> 
 		  <span class="ms-ListItem-secondaryText">[cat]</span> 
 		  <span class="ms-ListItem-tertiaryText">[desc]</span> 
