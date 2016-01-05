@@ -47,7 +47,7 @@
 						log('item selected');
 						try{
 							var CurrentSnippetHTML = $(this).attr('content');
-							log('content: ' + CurrentSnippetHTML);
+							/*log('content: ' + CurrentSnippetHTML);
 							Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, {asyncContext: CurrentSnippetHTML}, function callback(result){
 								log('gotAsync: ' + result.status);
 								var newBody = result.value + "<br/>" + CurrentSnippetHTML;
@@ -60,7 +60,17 @@
 								}catch(E){
 									log('Error: ' + E.toString());
 								}
-							});
+							}); */
+							
+							Office.context.mailbox.item.body.setSelectedDataAsync(
+								CurrentSnippetHTML, 
+								{coercionType: Office.CoercionType.Html}, 
+								function callback(resultinner){
+													log('setAsync: ' + resultinner.status);
+								}
+							);
+							
+							
 						}catch(E){
 							log('Error: ' + E.toString());
 						}
