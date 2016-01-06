@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="//appsforoffice.microsoft.com/fabric/1.0/fabric.components.min.css">
         <link rel="stylesheet" type="text/css" href="OutlookApp.css" />
 		<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="jquery.SPServices-2014.02.min.js"></script>
 		<script src="https://appsforoffice.microsoft.com/lib/1/hosted/Office.js" type="text/javascript"></script>
 		
 		
@@ -30,6 +31,21 @@
 		
 		var SnippetData = [{name:"Header", cat:"General Content", desc:"Standard Email Header", date:"1/5/2015", content:"<h1>This is the header</h1>And some other content<br/><br/>"}];
 		
+		function getSnippetData(callback){
+			$().SPServices({
+				operation: "GetListItems",
+				async: true,
+				listName: "Snippets",
+				CAMLViewFields: "<ViewFields><FieldRef Name='Title' /><FieldRef Name='Description' /><FieldRef Name='Category' /><FieldRef Name='Content' /><FieldRef Name='Modified' /></ViewFields>",
+				completefunc: function (xData, Status) {
+				  $(xData.responseXML).SPFilterNode("z:row").each(function() {
+					var liHtml = "<li>" + $(this).attr("ows_Title") + "</li>";
+					SnippetData.push({name:$(this).attr("ows_Title"), cat:$(this).attr("ows_Category"), desc:$(this).attr("ows_Description"), date:$(this).attr("ows_Modified"), content:$(this).attr("ows_Content")});
+					callback();
+				  });
+				}
+			  });
+		}
 		
 		function layoutTemplates(){
 			var html = $('#itemTemplate')[0].outerHTML;
@@ -41,12 +57,10 @@
 				$item.attr('id', 'snippet_' + i.toString());
 				$item.attr('content', item.content);
 				$item.click(function(){
-					if($(this).attr('class').indexOf('is-selected') == -1){
-						$(this).addClass('is-selected');
-						//insert snippet into email, marking with ID?
-						log('item selected');
+					
+						
 						try{
-							var CurrentSnippetHTML = $(this).attr('content');
+							var CurrentSnippetHTML = $(this).attr('content') + '<br/>';
 							/*log('content: ' + CurrentSnippetHTML);
 							Office.context.mailbox.item.body.getAsync(Office.CoercionType.Html, {asyncContext: CurrentSnippetHTML}, function callback(result){
 								log('gotAsync: ' + result.status);
@@ -74,9 +88,7 @@
 						}catch(E){
 							log('Error: ' + E.toString());
 						}
-					}else{
-						$(this).removeClass('is-selected');
-					}
+					
 					
 				});
 				$('body').append($item);
@@ -96,12 +108,11 @@
     </head>
     <body class="ms-font-m-plus">
 	
-		<div id="itemTemplate" class="ms-ListItem is-unread is-selectable">
+		<div id="itemTemplate" class="ms-ListItem is-unread">
 		  <span class="ms-ListItem-primaryText">[name]</span> 
 		  <span class="ms-ListItem-secondaryText">[cat]</span> 
 		  <span class="ms-ListItem-tertiaryText">[desc]</span> 
 		  <span class="ms-ListItem-metaText">[date]</span>
-		  <div class="ms-ListItem-selectionTarget js-toggleSelection"></div>
 		  <div class="ms-ListItem-actions">
 			<div class="ms-ListItem-action"></div>
 			<div class="ms-ListItem-action"></div>
