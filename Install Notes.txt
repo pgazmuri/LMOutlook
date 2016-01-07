@@ -1,0 +1,22 @@
+To Install this application:
+
+1. Determine which SharePoint site will host the application, and create a new document library there called "PluginHost"
+2. Update the OutlookApp.xml file:
+	Find all references to "https://Perkin/" (there should be 5 references)
+	Replace with the location of the PluginHost library that you created in step 1.
+3. Copy the files in this directory to the "PluginHost" library
+4. In the same SharePoint site, create a Custom List called "Snippets"
+5. Add the following Columns to the Snippets list:
+	Category - Choice (as dropdown) with options: "General Content" and "APD Claims Handling" (for now, we will add additional options later as needed)
+	Description - Single Line of text
+	Content - Enhanced Rich Text, 15 lines for editing, Append Changes:No
+	Order - Number, 0 decimal places to show, default value 0
+6. Ensure that end users will have read access to the SharePoint site hosting the application
+7. Supply the OutlookApp.xml manifest to Exchange Administrators to deploy the add-in to test users
+
+Note:
+
+In order for the app to load, users must have SSO (single sign on) access to the SHarePoint environment.  
+This means that the SharePoint site must be recognized as being in the local intranet zone with NTLM authentication enabled, or is marked as trusted.  
+If users are prompted for credentials when accessing SharePoint, this app will not load within outlook.
+ 

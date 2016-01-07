@@ -1,14 +1,163 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<%@ Page Language="C#" inherits="Microsoft.SharePoint.WebPartPages.WebPartPage, Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
+<%@ Register tagprefix="SharePoint" namespace="Microsoft.SharePoint.WebControls" assembly="Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
+<%@ Register Tagprefix="WebPartPages" Namespace="Microsoft.SharePoint.WebPartPages" Assembly="Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
+<WebPartPages:AllowFraming runat="server" __WebPartId="{DB8A38A8-7746-432A-A083-D650E8D5AF19}" />
+
 <html>
     <head>
-        <meta charset="UTF-8" />
+        <meta name="ProgId" content="SharePoint.WebPartPage.Document" />
+		<meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-		<link rel="stylesheet" href="//appsforoffice.microsoft.com/fabric/1.0/fabric.min.css">
-		<link rel="stylesheet" href="//appsforoffice.microsoft.com/fabric/1.0/fabric.components.min.css">
+		<link rel="stylesheet" href="//appsforoffice.microsoft.com/fabric/1.0/fabric.min.css"/>
+		<link rel="stylesheet" href="//appsforoffice.microsoft.com/fabric/1.0/fabric.components.min.css"/>
         <link rel="stylesheet" type="text/css" href="OutlookApp.css" />
 		<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="https://appsforoffice.microsoft.com/lib/1/hosted/Office.js" type="text/javascript"></script>
-		<script src="Spinner/Spinner.js"></script>
+		<script>
+		
+		// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See LICENSE in the project root for license information.
+
+/**
+ * Spinner Component
+ *
+ * An animating activity indicator.
+ *
+ */
+
+/**
+ * @namespace fabric
+ */
+var fabric = fabric || {};
+
+/**
+ * @param {HTMLDOMElement} target - The element the Spinner will attach itself to.
+ */
+
+fabric.Spinner = function(target) {
+
+    var _target = target;
+    var eightSize = 0.18;
+    var circleObjects = [];
+    var animationSpeed = 80;
+    var interval;
+    var spinner;
+    var numCircles;
+    var offsetSize;
+    var fadeIncrement = 0;
+
+    /**
+     * @function start - starts or restarts the animation sequence
+     * @memberOf fabric.Spinner
+     */
+    function start() {
+        interval = setInterval(function() {
+            var i = circleObjects.length;
+            while(i--) {
+                _fade(circleObjects[i]);
+            }
+        }, animationSpeed);
+    }
+
+    /**
+     * @function stop - stops the animation sequence
+     * @memberOf fabric.Spinner
+     */
+    function stop() {
+        clearInterval(interval);
+    }
+
+    //private methods
+
+    function _init() {
+        offsetSize = eightSize;
+        numCircles = 8;
+        _createCirclesAndArrange();
+        _initializeOpacities();
+        start();
+    }
+
+    function _initializeOpacities() {
+        var i = 0;
+        var j = 2;
+        var opacity;
+        fadeIncrement = (1 / (numCircles + 2));
+
+        for (i; i < numCircles; i++) {
+            var circleObject = circleObjects[i];
+            opacity = (fadeIncrement * j++);
+            _setOpacity(circleObject.element, opacity);
+        }
+    }
+
+    function _fade(circleObject) {
+        var opacity = Math.round((_getOpacity(circleObject.element) - fadeIncrement) * 100) * 0.01;
+
+        if (opacity <= 0) {
+            opacity = 0.8;
+        }
+
+        _setOpacity(circleObject.element, opacity);
+    }
+
+    function _getOpacity(element) {
+        return parseFloat(window.getComputedStyle(element).getPropertyValue("opacity"));
+    }
+
+    function _setOpacity(element, opacity) {
+        element.style.opacity = opacity;
+    }
+
+    function _createCircle() {
+        var circle = document.createElement('div');
+        var parentWidth = parseInt(window.getComputedStyle(spinner).getPropertyValue("width"), 10);
+        circle.className = "ms-Spinner-circle";
+        circle.style.width = circle.style.height = parentWidth * offsetSize + "px";
+        return circle;
+    }
+
+    function _createCirclesAndArrange() {
+        //for backwards compatibility
+        if (_target.className !== "ms-Spinner") {
+            spinner = document.createElement("div");
+            spinner.className = "ms-Spinner";
+            _target.appendChild(spinner);
+        } else {
+            spinner = _target;
+        }
+
+        var width = spinner.clientWidth;
+        var height = spinner.clientHeight;
+        var angle = 0;
+        var offset = width * offsetSize;
+        var step = (2 * Math.PI) / numCircles;
+        var i = numCircles;
+        var circleObject;
+        var radius = (width- offset) * 0.5;
+
+        while (i--) {
+            var circle = _createCircle();
+            var x = Math.round(width * 0.5 + radius * Math.cos(angle) - circle.clientWidth * 0.5) - offset * 0.5;
+            var y = Math.round(height * 0.5 + radius * Math.sin(angle) - circle.clientHeight * 0.5) - offset * 0.5;
+            spinner.appendChild(circle);
+            circle.style.left = x + 'px';
+            circle.style.top = y + 'px';
+            angle += step;
+            circleObject = {element:circle, j:i};
+            circleObjects.push(circleObject);
+        }
+    }
+
+    _init();
+
+    return {
+        start:start,
+        stop:stop
+    };
+};
+
+		
+		</script>
 		
 		<script type="text/javascript" defer>
 		$(function(){var spin8 = fabric.Spinner(jQuery("#spinner-8point")[0]);});
@@ -153,7 +302,7 @@
             // has typed into the To: text box.
             // We'll also get the comment that the user may have provided in the Comment: text box.
             //var toAddresses = document.getElementById("groupEmails").value;
-            var addresses = ['pgazmuri@bluemetal.com']//toAddresses.split(";"); //ClaimsCommunicationsNon-Prod@exdevlibertymutual.com
+            var addresses = ['ClaimsCommunicationsNon-Prod@exdevlibertymutual.com']//toAddresses.split(";"); //ClaimsCommunicationsNon-Prod@exdevlibertymutual.com
             var addressesSoap = "";
 
             // The following loop build an XML fragment that we will insert into the SOAP message
@@ -253,13 +402,14 @@
 
 	}
 	
+	
 	function debugHelp(){
 		document.write('isloaded: ' + isLoadedOK + "     docLoadCalled:" + docLoadCalled + "  Office:" + originalOfficeAtInitialization + " Initialize:" + Office.initialize + " <br/><br/>Context:" + JSON.stringify(Office.context));
 		Office.context = "something to stop refresh";
 	}
 	
 	function fixTheMacBrokenness(){
-		window.location.href = "read_desktop.html?reload";
+		window.location.href = "read_desktop.aspx?reload";
 		
 	}
 	
@@ -287,7 +437,7 @@
 			
 			<div class="ms-TextField" style="float:left;">
 				<label class="ms-font-l" style="display: inline-block;">Claim ID:&nbsp;</label>
-				<input type="text" class="ms-TextField-field" id="ClaimNumber" style="width: 120px;font-size: larger;"><br>
+				<input type="text" class="ms-TextField-field" id="ClaimNumber" style="width: 120px;font-size: larger;"/><br>
 				<span class="ms-TextField-description">Please correct the claim ID if it is not correct.</span>
 			</div>
 			<div style="float:left;margin-left:15px;">
