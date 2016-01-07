@@ -2,11 +2,11 @@
 <%@ Page Language="C#" inherits="Microsoft.SharePoint.WebPartPages.WebPartPage, Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
 <%@ Register tagprefix="SharePoint" namespace="Microsoft.SharePoint.WebControls" assembly="Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
 <%@ Register Tagprefix="WebPartPages" Namespace="Microsoft.SharePoint.WebPartPages" Assembly="Microsoft.SharePoint, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
-<WebPartPages:AllowFraming runat="server" __WebPartId="{DB8A38A8-7746-432A-A083-D650E8D5AF19}" />
+<WebPartPages:AllowFraming runat="server" __WebPartId="{DB8A38A8-7746-432A-A083-D650E8D5AF19}"/>
 
 <html>
     <head>
-        <meta name="ProgId" content="SharePoint.WebPartPage.Document" />
+<meta name="ProgId" content="SharePoint.WebPartPage.Document" />
 		<meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 		<link rel="stylesheet" href="//appsforoffice.microsoft.com/fabric/1.0/fabric.min.css"/>
@@ -201,6 +201,9 @@ fabric.Spinner = function(target) {
 				document.getElementById('Loading').style.display = "none";
 				
 				});
+				
+				
+
 		};
 		}catch(err){
 					document.getElementById('AppMain').style.display = "none";
@@ -259,14 +262,21 @@ fabric.Spinner = function(target) {
             '</soap:Envelope>';
 
         // The makeEwsRequestAsync method accepts a string of SOAP and a callback function
-        mailbox.makeEwsRequestAsync(soapToGetItemData, soapToGetItemDataCallback);
+        mailbox.makeEwsRequestAsync(soapToGetItemData, getEnvironmentAndContinueSending);
     }
+    
+    function getEnvironmentAndContinueSending(asyncResult){
+    	$.get('Environment.txt', null, function(data){
+			eval(data);
+			soapToGetItemDataCallback(asyncResult, SystemEmail);
+		});
+	}
 
     // This function is the callback for the makeEwsRequestAsync method
     // In brief, it first checks for an error repsonse, but if all is OK
     // it then parses the XML repsonse to extract the ChangeKey attribute of the 
     // t:ItemId element.
-    function soapToGetItemDataCallback(asyncResult) {
+    function soapToGetItemDataCallback(asyncResult, SystemEmail) {
         var parser;
         var xmlDoc;
 
@@ -302,7 +312,7 @@ fabric.Spinner = function(target) {
             // has typed into the To: text box.
             // We'll also get the comment that the user may have provided in the Comment: text box.
             //var toAddresses = document.getElementById("groupEmails").value;
-            var addresses = ['ClaimsCommunicationsNon-Prod@exdevlibertymutual.com']//toAddresses.split(";"); //ClaimsCommunicationsNon-Prod@exdevlibertymutual.com
+            var addresses = [SystemEmail]//toAddresses.split(";"); //ClaimsCommunicationsNon-Prod@exdevlibertymutual.com
             var addressesSoap = "";
 
             // The following loop build an XML fragment that we will insert into the SOAP message
