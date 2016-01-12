@@ -4,18 +4,18 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xsi:type="MailApp">
 
-  <Id>989E76EF-D73E-567F-ADAE-5A76B39065CF</Id>
+  <Id>989E76EF-D73E-567F-ADAE-5A76B39065CG</Id>
   <Version>1.0</Version>
   <ProviderName>BlueMetal</ProviderName>
   <DefaultLocale>en-us</DefaultLocale>
-  <DisplayName DefaultValue="PI Claims Navigator"/>
+  <DisplayName DefaultValue="PI Claims Navigator - Github"/>
   <Description DefaultValue="Assists with filing and creation of PI claims emails.">
     <Override Locale="fr-fr" Value="Visualisez les Claims"/>
   </Description>
   <!-- Change the following line to specify    -->
   <!-- the web serverthat hosts the icon file. -->
   <IconUrl DefaultValue=
-    "https://Perkin/PluginHost/Logo.png"/>
+    "https://raw.githubusercontent.com/pgazmuri/LMOutlook/published/Logo.png"/>
   <Hosts>
     <Host Name="Mailbox" />
   </Hosts>
@@ -30,13 +30,13 @@
       <DesktopSettings>
         <!-- Change the following line to specify     -->
         <!-- the web server that hosts the HTML file. -->
-        <SourceLocation DefaultValue="https://Perkin/PluginHost/read_desktop.aspx" />
+        <SourceLocation DefaultValue="https://raw.githubusercontent.com/pgazmuri/LMOutlook/published/read_desktop.aspx" />
         <RequestedHeight>216</RequestedHeight>
       </DesktopSettings>
       <TabletSettings>
         <!-- Change the following line to specify     -->
         <!-- the web server that hosts the HTML file. -->
-        <SourceLocation DefaultValue="https://Perkin/PluginHost/read_desktop.aspx" />
+        <SourceLocation DefaultValue="https://raw.githubusercontent.com/pgazmuri/LMOutlook/published/read_desktop.aspx" />
         <RequestedHeight>216</RequestedHeight>
       </TabletSettings>
     </Form>
@@ -44,12 +44,12 @@
       <DesktopSettings>
         <!-- Change the following line to specify     -->
         <!-- the web server that hosts the HTML file. -->
-        <SourceLocation DefaultValue="https://Perkin/PluginHost/compose_desktop.aspx" />
+        <SourceLocation DefaultValue="https://raw.githubusercontent.com/pgazmuri/LMOutlook/published/compose_desktop.aspx" />
       </DesktopSettings>
       <TabletSettings>
         <!-- Change the following line to specify     -->
         <!-- the web server that hosts the HTML file. -->
-        <SourceLocation DefaultValue="https://Perkin/PluginHost/compose_desktop.aspx" />
+        <SourceLocation DefaultValue="https://raw.githubusercontent.com/pgazmuri/LMOutlook/published/compose_desktop.aspx" />
       </TabletSettings>
     </Form>
   </FormSettings>
