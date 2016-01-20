@@ -6,6 +6,7 @@
 
 <html>
     <head>
+<meta name="WebPartPageExpansion" content="full" />
 <meta name="ProgId" content="SharePoint.WebPartPage.Document" />
 		<meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
@@ -320,7 +321,13 @@ fabric.Spinner = function(target) {
                 addressesSoap += "<t:Mailbox><t:EmailAddress>" + addresses[address] + "</t:EmailAddress></t:Mailbox>";
             }
             var comment = 'Forwarded from PI Claims Navigator - Claim Number: ' + document.getElementById("ClaimNumber").value;
-			var newSubject = document.getElementById("ClaimNumber").value + " - " + Office.context.mailbox.item.subject;
+            
+			var newSubject = Office.context.mailbox.item.subject;
+			
+			//if the claimID isn't already there, let's add it:
+			if(Office.context.mailbox.item.subject.indexOf('ClaimID#:' + document.getElementById("ClaimNumber").value) == -1){			
+				newSubject = 'ClaimID#:' + document.getElementById("ClaimNumber").value + " - " + Office.context.mailbox.item.subject;
+			}
 			
 
             // The following string is a valid SOAP envelope and request for forwarding
@@ -344,8 +351,8 @@ fabric.Spinner = function(target) {
                 '        <t:ForwardItem>' +
                 '          <t:Subject>' + newSubject + '</t:Subject>' +
                 '          <t:ToRecipients>' + addressesSoap + '</t:ToRecipients>' +
-                '          <t:ReferenceItemId Id="' + item_id + '" ChangeKey="' + changeKey + '" />' +
-                '          <t:NewBodyContent BodyType="Text">' + comment + '</t:NewBodyContent>' +
+                '          <t:ReferenceItemId Id="' + item_id + '" ChangeKey="' + changeKey + '" />' +/*
+                '          <t:NewBodyContent BodyType="Text">' + comment + '</t:NewBodyContent>' +*/
                 '        </t:ForwardItem>' +
                 '      </m:Items>' +
                 '    </m:CreateItem>' +
