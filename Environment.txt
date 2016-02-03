@@ -1,1 +1,2 @@
-var SystemEmail='pablo@gazmuri.net';
+SystemEmail='pgazmuri@bluemetal.com';
+TestEmails = ['pgazmuri@bluemetal.com', 'pablo@gazmuri.net'];

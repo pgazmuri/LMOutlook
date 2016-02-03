@@ -6,7 +6,6 @@
 
 <html>
     <head>
-<meta name="WebPartPageExpansion" content="full" />
 <meta name="ProgId" content="SharePoint.WebPartPage.Document" />
 		<meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
@@ -161,6 +160,9 @@ fabric.Spinner = function(target) {
 		</script>
 		
 		<script type="text/javascript" defer>
+		var SystemEmail;
+		var TestEmails;
+		var isTestMode = false;
 		$(function(){var spin8 = fabric.Spinner(jQuery("#spinner-8point")[0]);});
 		
 		var isLoadedOK = false;
@@ -186,10 +188,39 @@ fabric.Spinner = function(target) {
 					claimId = Office.context.mailbox.item.getRegExMatches().ClaimID[0];
 					}catch(ignore){}
 				if(claimId == null){
+					try{
 					claimId = Office.context.mailbox.item.getRegExMatches().ClaimIDSubject[0];
+					}catch(ignore){}
 				}
 				
-				document.getElementById('ClaimNumber').value = claimId;
+				if(claimId == null){
+					$('#noClaimPara').show();
+					$('#claimPara').hide();
+				}
+				if(claimId != null){
+					document.getElementById('ClaimNumber').value = claimId;
+				}
+				
+				document.onkeydown = function(args){
+					var evtobj = window.event? event : e
+					if (evtobj.keyCode == 18 && evtobj.altKey) {
+						//enable test mode
+						//populate emailPicker
+						$.each(TestEmails, function(key, value) {   
+							     $('#emailPicker')
+							          .append($('<option></option>')
+							          .attr("value", value)
+							          .text(value));
+						});
+						
+						//show TestHarness
+						$('#TestHarness').show();
+						
+						//update boolean var to track that we are now in test mode
+						isTestMode = true;
+					}
+				};
+				
 				}catch(E){
 					errorOnLoad = E;
 					document.getElementById('AppMain').style.display = "none";
@@ -198,9 +229,11 @@ fabric.Spinner = function(target) {
 					document.getElementById('ErrorMessage').innerText = "The following error occured when loading the claimID: " + E.toString();
 				}
 				
-				document.getElementById('AppMain').style.display = "block";
-				document.getElementById('Loading').style.display = "none";
-				
+				$.get('Environment.txt', null, function(data){
+					eval(data);	
+					document.getElementById('AppMain').style.display = "block";
+					document.getElementById('Loading').style.display = "none";
+				});
 				});
 				
 				
@@ -267,10 +300,11 @@ fabric.Spinner = function(target) {
     }
     
     function getEnvironmentAndContinueSending(asyncResult){
-    	$.get('Environment.txt', null, function(data){
-			eval(data);
-			soapToGetItemDataCallback(asyncResult, SystemEmail);
-		});
+    	if(isTestMode){
+    		SystemEmail = $('#emailPicker').val();
+    	}
+    	soapToGetItemDataCallback(asyncResult, SystemEmail);
+    	
 	}
 
     // This function is the callback for the makeEwsRequestAsync method
@@ -325,8 +359,8 @@ fabric.Spinner = function(target) {
 			var newSubject = Office.context.mailbox.item.subject;
 			
 			//if the claimID isn't already there, let's add it:
-			if(Office.context.mailbox.item.subject.indexOf('ClaimID#:' + document.getElementById("ClaimNumber").value) == -1){			
-				newSubject = 'ClaimID#:' + document.getElementById("ClaimNumber").value + " - " + Office.context.mailbox.item.subject;
+			if(Office.context.mailbox.item.subject.indexOf('Claim#:' + document.getElementById("ClaimNumber").value) == -1){			
+				newSubject = 'Claim#:' + document.getElementById("ClaimNumber").value + " - " + Office.context.mailbox.item.subject;
 			}
 			
 
@@ -450,8 +484,8 @@ fabric.Spinner = function(target) {
 		</div>
 		<div style="clear:both;"></div>
 		<div id="AppMain" style="display: none;">
-			<p>We've detected a claim number in this email.  Would you like to file this in Navigator?</p>
-			
+			<p id="claimPara">We've detected a claim number in this email.  Would you like to file this in Navigator?</p>
+			<p id="noClaimPara" style="display:none;">Please enter the associated claim number below.</p>
 			<div class="ms-TextField" style="float:left;">
 				<label class="ms-font-l" style="display: inline-block;">Claim ID:&nbsp;</label>
 				<input type="text" class="ms-TextField-field" id="ClaimNumber" style="width: 120px;font-size: larger;"/><br>
@@ -467,6 +501,9 @@ fabric.Spinner = function(target) {
 			<div style="width:64px; margin:auto;">
 				<div id="spinner-8point"></div><p>Working...</p>
 			</div>
+		</div>
+		<div id="TestHarness" style="display:none;">
+			System Email Address: <select id="emailPicker"></select>
 		</div>
 		<div id="Error" style="display:none;">
 			<i class="ms-Icon ms-Icon--alert"></i>&nbsp;&nbsp;<span id="ErrorMessage"></span>

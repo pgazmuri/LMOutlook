@@ -4,7 +4,7 @@ To Install this application:
 2. Update the OutlookApp.xml file:
 	Find all references to "https://Perkin/" (there should be 5 references)
 	Replace with the location of the PluginHost library that you created in step 1.
-2.5 Update the Environment.txt file to contain the correct email address for the current environment.
+2.5 Update the Environment.txt file to contain the correct email addresses for the current environment.
 2.9 Remove the AllowFraming Tag from the ASPX files (SharePoint 2010 deployment requires this)
 3. Copy the files in this directory to the "PluginHost" library
 4. In the same SharePoint site, create a Custom List called "Snippets"
@@ -14,6 +14,7 @@ To Install this application:
 	Content - Enhanced Rich Text, 15 lines for editing, Append Changes:No
 	Order - Number, 0 decimal places to show, default value 0
 	Subject - Single Line of Text
+	Mode - Choice (as dropdown) with options: "Snippet" and "Template" - Required Field
 6. Ensure that end users will have read access to the SharePoint site hosting the application
 7. Supply the OutlookApp.xml manifest to Exchange Administrators to deploy the add-in to test users
 

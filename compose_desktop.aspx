@@ -5,7 +5,6 @@
 <WebPartPages:AllowFraming runat="server" __WebPartId="{DB8A38A8-7746-432A-A083-D650E8D5AF19}"/>
 <html>
     <head>
-<meta name="WebPartPageExpansion" content="full" />
 <meta name="ProgId" content="SharePoint.WebPartPage.Document" />
 		<meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
@@ -55,13 +54,13 @@
 				operation: "GetListItems",
 				async: true,
 				listName: "Snippets",
-				CAMLViewFields: "<ViewFields><FieldRef Name='Title' /><FieldRef Name='Subject' /><FieldRef Name='Order0'  Type='Number' /><FieldRef Name='Description' /><FieldRef Name='Category' /><FieldRef Name='Content' /><FieldRef Name='Modified' /></ViewFields>",
+				CAMLViewFields: "<ViewFields><FieldRef Name='Title' /><FieldRef Name='Mode' /><FieldRef Name='Subject' /><FieldRef Name='Order0'  Type='Number' /><FieldRef Name='Description' /><FieldRef Name='Category' /><FieldRef Name='Content' /><FieldRef Name='Modified' /></ViewFields>",
 				CAMLQuery:"<Query><Where><Neq><FieldRef Name='ID'/><Value Type='Number'>0</Value></Neq></Where><OrderBy><FieldRef Name='Order0' Type='Number' Ascending='TRUE' /><FieldRef Name='Title' /></OrderBy></Query>",
 				completefunc: function (xData, Status) {
 				try{
 					  $(xData.responseText).find("z\\:row").each(function() {
 						var liHtml = "<li>" + $(this).attr("ows_Title") + "</li>";
-						SnippetData.push({id: $(this).attr("ows_ID"),subject:$(this).attr("ows_Subject"),name:$(this).attr("ows_Title"), cat:$(this).attr("ows_Category"), desc:$(this).attr("ows_Description"), date:$(this).attr("ows_Modified"), content:$(this).attr("ows_Content")});
+						SnippetData.push({id: $(this).attr("ows_ID"),mode: $(this).attr("ows_Mode"),subject:$(this).attr("ows_Subject"),name:$(this).attr("ows_Title"), cat:$(this).attr("ows_Category"), desc:$(this).attr("ows_Description"), date:$(this).attr("ows_Modified"), content:$(this).attr("ows_Content")});
 						
 					  });
 					  for(var i =0; i < SnippetData.length;i++){
@@ -115,7 +114,7 @@
 				for(var i =0; i < SnippetData.length;i++){
 					var item = SnippetData[i];
 					var html = $('#itemTemplate')[0].outerHTML;
-					html = html.replace('[name]', item.name).replace('[cat]', item.cat).replace('[desc]', item.desc).replace('[date]', item.date);
+					html = html.replace('[name]', item.name).replace('[cat]', item.cat).replace('[desc]', item.desc).replace('[date]', item.date).replace('[mode]', item.mode);
 					var $item = $(html);
 					var $anchor = $item.find('a');
 					$item.attr('id', 'snippet_' + i.toString());
@@ -125,20 +124,31 @@
 
 					$anchor.click(function(){
 						try{
+						
+													
 							var $content = $($(this).attr('content') + '<br/>');
 							var subject = $(this).attr('subject');
 							var CurrentSnippetHTML = $content[0].outerHTML;
 							
+							if($(this).text() == "Insert"){
 							Office.context.mailbox.item.body.setSelectedDataAsync(
 								CurrentSnippetHTML, 
 								{coercionType: Office.CoercionType.Html}, 
 								genericErrorHandler);
+							}else{
+							Office.context.mailbox.item.body.setAsync(
+								CurrentSnippetHTML, 
+								{coercionType: Office.CoercionType.Html}, 
+								genericErrorHandler);
+								
+
+							}
 							
 							if(subject != null && subject.length > 0){
 								Office.context.mailbox.item.subject.getAsync(function(result){
 									//set the email subject if it's just the claim ID
-									if(result.value == 'ClaimID#:' + globalClaimNumber){
-										Office.context.mailbox.item.subject.setAsync('ClaimID#:' + globalClaimNumber + ' - ' + subject, {}, genericErrorHandler);
+									if(result.value == 'Claim#:' + globalClaimNumber){
+										Office.context.mailbox.item.subject.setAsync('Claim#:' + globalClaimNumber + ' - ' + subject, {}, genericErrorHandler);
 									}
 								});
 							}
@@ -167,6 +177,31 @@
 					eval(data);
 					Office.context.mailbox.item.bcc.setAsync([SystemEmail], {}, genericErrorHandler);
 				});
+				
+				$('#selMode').change(function(){
+					$('.mode-Snippet').hide();
+					$('.mode-Template').hide();
+					$('.mode-' + $(this).val()).show();
+					
+					//hide all but relevant categories
+					$('.categorySection').each(function(){
+					
+						$this = $(this);
+						$this.hide();
+						
+						//show categories with visible items
+						if($this.find('.mode-' + $('#selMode').val()).length > 0){
+							$this.show();
+						}
+					
+					});
+					
+					
+					
+				});
+				
+				$('#selMode').change();
+				
 				
 			}catch(E){
 				log('Error: ' + E.toString());
@@ -227,7 +262,7 @@
 				$('#StartUI').hide();
 				$('#MainUI').show();
 				$('#ClaimIDDisplay').text(globalClaimNumber);
-				Office.context.mailbox.item.subject.setAsync('ClaimID#:' + globalClaimNumber, {}, genericErrorHandler);
+				Office.context.mailbox.item.subject.setAsync('Claim#:' + globalClaimNumber, {}, genericErrorHandler);
 			}
 		}
 		
@@ -310,16 +345,27 @@
 	padding-top:0px;
 	margin-bottom:5px;
 }
+
+.mode-Snippet .button-Replace{
+	display:none;
+}
+
+.mode-Template .button-Insert{
+	display:none;
+}
+
 	</style>
 		
     </head>
     <body class="ms-font-m-plus">
 	
-		<div id="itemTemplate" class="ms-ListItem is-unread" style="cursor:pointer;">
+		<div id="itemTemplate" class="ms-ListItem is-unread mode-[mode]" style="cursor:pointer;">
 		  <span class="ms-ListItem-primaryText">[name]</span>  
 		  <span class="ms-ListItem-secondaryText">[date]</span>
 		  <span class="ms-ListItem-tertiaryText">[desc]</span>
-		  <a href="#" class="ms-Button ms-Button--primary" style="text-decoration:none;"><span class="ms-Button-label" style="text-decoration:none;">Insert</span></a>
+		  <a href="#" class="ms-Button ms-Button--primary button-Insert" style="text-decoration:none;"><span class="ms-Button-label" style="text-decoration:none;">Insert</span></a>
+		  <a href="#" class="ms-Button ms-Button--primary button-Replace" style="text-decoration:none;"><span class="ms-Button-label" style="text-decoration:none;">Replace</span></a>
+
 		</div>
 		
 		<div id="categoryTemplate" class="categorySection category-open smallerFont">
@@ -341,7 +387,16 @@
 		</div>
 
 		<div id="MainUI" style="display:none;">
-			Claim ID: <span id="ClaimIDDisplay"></span>&nbsp;&nbsp;<a href="javascript:resetApp();" class="ms-Button ms-Button--primary" style="text-decoration:none;"><i class="ms-Icon ms-Icon ms-Icon--reactivate" style="color:white;"></i><span class="ms-Button-label" style="text-decoration:none;">Restart</span></a><p></p>
+			Claim ID: <span id="ClaimIDDisplay"></span>&nbsp;&nbsp;<a href="javascript:resetApp();" class="ms-Button ms-Button--primary" style="text-decoration:none;"><i class="ms-Icon ms-Icon ms-Icon--reactivate" style="color:white;"></i><span class="ms-Button-label" style="text-decoration:none;">Restart</span></a>
+			
+			<div>
+				Filter By:&nbsp;&nbsp;<select id="selMode">
+					<option value="Snippet">Snippets</option>
+					<option value="Template">Templates</option>
+				</select>
+			</div>
+			
+			<p></p>
 		</div>
 		
 		<div id="Error" style="display:none;">
