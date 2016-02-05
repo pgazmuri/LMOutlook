@@ -163,6 +163,7 @@ fabric.Spinner = function(target) {
 		var SystemEmail;
 		var TestEmails;
 		var isTestMode = false;
+		var TestingEnabled = false;
 		$(function(){var spin8 = fabric.Spinner(jQuery("#spinner-8point")[0]);});
 		
 		var isLoadedOK = false;
@@ -202,22 +203,35 @@ fabric.Spinner = function(target) {
 				}
 				
 				document.onkeydown = function(args){
-					var evtobj = window.event? event : e
-					if (evtobj.keyCode == 18 && evtobj.altKey) {
-						//enable test mode
-						//populate emailPicker
-						$.each(TestEmails, function(key, value) {   
-							     $('#emailPicker')
-							          .append($('<option></option>')
-							          .attr("value", value)
-							          .text(value));
-						});
-						
-						//show TestHarness
-						$('#TestHarness').show();
-						
-						//update boolean var to track that we are now in test mode
-						isTestMode = true;
+					if(TestingEnabled){
+						var evtobj = window.event? event : e
+						if (evtobj.keyCode == 18 && evtobj.altKey) {
+							
+							if(!isTestMode){
+								//enable test mode
+								
+								//clear emailPicker
+								$('#emailPicker').find('option').remove();
+								
+								//populate emailPicker
+								$.each(TestEmails, function(key, value) {   
+									     $('#emailPicker')
+									          .append($('<option></option>')
+									          .attr("value", value)
+									          .text(value));
+								});
+								
+								//show TestHarness
+								$('#TestHarness').show();
+							}else{
+								//hide TestHarness
+								$('#TestHarness').hide();
+
+							}
+							
+							//update boolean var to track test mode
+							isTestMode = !isTestMode;
+						}
 					}
 				};
 				

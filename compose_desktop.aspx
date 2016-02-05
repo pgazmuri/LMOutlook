@@ -131,17 +131,15 @@
 							var CurrentSnippetHTML = $content[0].outerHTML;
 							
 							if($(this).text() == "Insert"){
-							Office.context.mailbox.item.body.setSelectedDataAsync(
-								CurrentSnippetHTML, 
-								{coercionType: Office.CoercionType.Html}, 
-								genericErrorHandler);
+								Office.context.mailbox.item.body.setSelectedDataAsync(
+									CurrentSnippetHTML, 
+									{coercionType: Office.CoercionType.Html}, 
+									genericErrorHandler);
 							}else{
-							Office.context.mailbox.item.body.setAsync(
-								CurrentSnippetHTML, 
-								{coercionType: Office.CoercionType.Html}, 
-								genericErrorHandler);
-								
-
+								Office.context.mailbox.item.body.setAsync(
+									CurrentSnippetHTML, 
+									{coercionType: Office.CoercionType.Html}, 
+									genericErrorHandler);
 							}
 							
 							if(subject != null && subject.length > 0){
@@ -346,6 +344,7 @@
 	margin-bottom:5px;
 }
 
+/*
 .mode-Snippet .button-Replace{
 	display:none;
 }
@@ -353,6 +352,7 @@
 .mode-Template .button-Insert{
 	display:none;
 }
+*/
 
 	</style>
 		
@@ -364,8 +364,9 @@
 		  <span class="ms-ListItem-secondaryText">[date]</span>
 		  <span class="ms-ListItem-tertiaryText">[desc]</span>
 		  <a href="#" class="ms-Button ms-Button--primary button-Insert" style="text-decoration:none;"><span class="ms-Button-label" style="text-decoration:none;">Insert</span></a>
+		  <!--
 		  <a href="#" class="ms-Button ms-Button--primary button-Replace" style="text-decoration:none;"><span class="ms-Button-label" style="text-decoration:none;">Replace</span></a>
-
+			-->
 		</div>
 		
 		<div id="categoryTemplate" class="categorySection category-open smallerFont">
