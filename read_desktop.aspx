@@ -202,10 +202,11 @@ fabric.Spinner = function(target) {
 					document.getElementById('ClaimNumber').value = claimId;
 				}
 				
-				document.onkeydown = function(args){
+				document.onkeydown = function(e){
 					if(TestingEnabled){
-						var evtobj = window.event? event : e
-						if (evtobj.keyCode == 18 && evtobj.altKey) {
+						var evtobj = window.event? event : e;
+						//console.log('Key Pressed: ' + evtobj.keyCode + ' - Alt: ' + evtobj.altKey);
+						if (evtobj.keyCode == 80 && evtobj.altKey) {
 							
 							if(!isTestMode){
 								//enable test mode
@@ -376,6 +377,9 @@ fabric.Spinner = function(target) {
 			if(Office.context.mailbox.item.subject.indexOf('Claim#:' + document.getElementById("ClaimNumber").value) == -1){			
 				newSubject = 'Claim#:' + document.getElementById("ClaimNumber").value + " - " + Office.context.mailbox.item.subject;
 			}
+			
+			//tag subject with "inbound"
+			newSubject = newSubject + ' - inbound';
 			
 
             // The following string is a valid SOAP envelope and request for forwarding
